@@ -24,11 +24,6 @@ public class ShortenerRestController {
         return "Hello, " + name;
     }
 
-    @RequestMapping("/home")
-    public String index() {
-        return "index";
-    }
-
     @RequestMapping(value = "/shorturl", method = RequestMethod.POST)
     public CreateShortUrlResponse create(@RequestBody CreateShortUrlRequest req) throws UnknownHostException, SocketException {
         String shortUrl = shortenerService.shorten(req.getLongUrl());

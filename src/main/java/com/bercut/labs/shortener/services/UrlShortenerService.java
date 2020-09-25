@@ -46,9 +46,13 @@ public class UrlShortenerService {
      * @throws ShortUrlNotFoundException if not found
      */
     public String findLongUrl(String key) throws UrlShortenerServiceException {
+
         String longUrl = urlRepository.findByShortKey(key).get(0).getLongUrl();
         if (longUrl == null) {
             throw new ShortUrlNotFoundException(key);
+        }
+        if (!(longUrl.startsWith("http://") || longUrl.startsWith("https://"))) {
+            longUrl = "http://" + longUrl;
         }
         return longUrl;
     }

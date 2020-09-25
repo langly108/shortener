@@ -16,11 +16,11 @@ public class RedirectController {
     private UrlShortenerService service;
 
 
-
     //http://localhost:8100/asd
     @RequestMapping("/s/{key}")
     public void redirect(@PathVariable("key") String key, HttpServletResponse resp) {
         String longUrl = service.findLongUrl(key);
+
         resp.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
         resp.addHeader("Location", longUrl);
     }
