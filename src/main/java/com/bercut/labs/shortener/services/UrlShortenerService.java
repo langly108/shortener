@@ -5,7 +5,10 @@ import com.bercut.labs.shortener.repository.UrlRepo;
 import com.bercut.labs.shortener.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+
+import java.net.*;
 
 
 /**
@@ -20,18 +23,24 @@ public class UrlShortenerService {
     @Autowired
     private UrlRepository urlRepository;
 
-    public String shorten(String longUrl) {
+    public String shorten(String longUrl) throws UnknownHostException, SocketException {
         String shortKey = Integer.toHexString(longUrl.hashCode());
+        String ip  = "188.134.86.77";;
         UrlRepo u = new UrlRepo();
         u.setShortKey(shortKey);
         u.setLongUrl(longUrl);
-        urlRepository.save(u);
-        return "http://localhost:" + serverPort + "/" + shortKey;
+        try {
+            urlRepository.save(u);
+        } catch (Exception e) {
+
+        }
+        return "http://" + ip + ":" + serverPort + "/s/" + shortKey;
     }
 
 
     /**
      * Finds long url by key
+     *
      * @param key short key that was created in {@link com.bercut.labs.shortener.controllers.ShortenerRestController#create(CreateShortUrlRequest)}
      * @return long url
      * @throws ShortUrlNotFoundException if not found

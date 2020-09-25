@@ -16,3 +16,22 @@ textarea {
     resize: vertical;
     max-height: 50px;
 }
+
+h4.card-title {
+    padding-top: 10px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+#text_result {
+    font-size: 80%;
+}
+
+#basic-addon2 {
+    cursor: pointer;
+}
+
+#basic-addon2:hover {
+    background-color: #cdd2d8;
+}
